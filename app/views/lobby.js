@@ -1,5 +1,6 @@
 import React from 'react'
 import io from 'socket.io-client'
+import axios from 'axios'
 
 import ListGroup from '../components/list-group'
 import InputForm from '../components/input-form'
@@ -11,7 +12,8 @@ class Lobby extends React.Component {
     this.submitName = this.submitName.bind(this)
     this.state = {
       player: null,
-      players: []
+      players: [],
+      questions: []
     }
   }
 
@@ -29,6 +31,10 @@ class Lobby extends React.Component {
     this.socket.on('left', ({player}) => {
       console.log(`${player.name} left the game!`)
     })
+    axios.get('/api/questions')
+      .then(response => {
+        this.setState({questions: response.data})
+      })
   }
 
   componentWillUnmount() {
@@ -48,11 +54,25 @@ class Lobby extends React.Component {
       <div className="lobby">
         <h1>Room {name}</h1>
         {this.state.player ? (
-          <ListGroup
-            items={this.state.players}
-            getKey={player => player.id}
-            renderItem={player => <span>{player.name}</span>}
-          />
+          <div>
+            <ListGroup
+              items={this.state.players}
+              getKey={player => player.id}
+              renderHeader={() => <h2>Players</h2>}
+              renderItem={player => <span>{player.name}</span>}
+            />
+            {this.state.questions.length ? (
+              <ListGroup
+                items={this.state.questions}
+                getKey={question => question.id}
+                renderHeader={() => <h2>Questions</h2>}
+                renderItem={question => <span>{question.title}</span>}
+              />
+            ) : (
+              <span>No Questions</span>
+            )}
+
+          </div>
         ) : (
           <InputForm onSubmit={this.submitName} />
         )}

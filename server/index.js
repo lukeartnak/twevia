@@ -67,6 +67,15 @@ function setupRoutes(db) {
 
   })
 
+  app.get('/api/questions', (req, res) => {
+
+    db.questions.find()
+      .then(questions => {
+        res.json(questions)
+      })
+
+  })
+
   app.get('/api/questions/:id', (req, res) => {
 
     let id = parseInt(req.params.id)
@@ -90,7 +99,7 @@ function setupRoutes(db) {
       title: req.body.title
     }).then(question => {
       db.answers.insert(req.body.answers.map(
-        answer => Object.assign(answer, {question_id: question.id})
+        answer => Object.assign({}, answer, {question_id: question.id})
       )).then(fullAnswers => {
         question.answers = fullAnswers.map(answer => ({
           id: answer.id,
