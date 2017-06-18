@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './list-group.scss'
+
 const ListGroup = ({items, renderHeader, renderItem, getKey, onItemClick}) => (
   <ul className="list-group">
     {renderHeader ? (

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './input-form.scss'
+
 class InputForm extends React.Component {
 
   constructor(props) {
@@ -21,8 +23,10 @@ class InputForm extends React.Component {
   render() {
     return (
       <form className="input-form" onSubmit={this.handleSubmit}>
-        <input type="text" defaultValue={this.state.value} onChange={this.handleChange} />
-        <button type="submit">Submit</button>
+        <input className="input-form__input" type="text" defaultValue={this.state.value} onChange={this.handleChange} />
+        <button className="input-form__submit" type="submit">
+          <i className="fa fa-arrow-right"></i>
+        </button>
       </form>
     )
   }

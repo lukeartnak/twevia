@@ -1,0 +1,26 @@
+.input-form {
+  display: flex;
+
+  &__input {
+    flex: 1;
+    width: 100%;
+    padding: .5em;
+    margin-right: .25em;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font: inherit;
+    outline: none;
+  }
+
+  &__submit {
+    font: inherit;
+    padding: .5em;
+    background: #4CAF50;
+    color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+  }
+
+}

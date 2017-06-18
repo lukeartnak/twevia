@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import {Link} from 'react-router-dom'
-import ListGroup from '../components/list-group'
+import ListGroup from '../components/list-group/list-group'
 
 class Home extends React.Component {
 
@@ -53,7 +53,7 @@ class Home extends React.Component {
         <ListGroup
           items={this.state.rooms}
           getKey={room => room.id}
-          renderHeader={() => <h2>Rooms</h2>}
+          renderHeader={() => <span>Rooms</span>}
           renderItem={room => <span>{room.name}</span>}
           onItemClick={this.joinRoom}
         />

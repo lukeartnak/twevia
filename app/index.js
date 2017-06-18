@@ -6,6 +6,8 @@ import Home from './views/home'
 import Lobby from './views/lobby'
 import Create from './views/create'
 
+import './index.scss'
+
 class Application extends React.Component {
 
   constructor() {

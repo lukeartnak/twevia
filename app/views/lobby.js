@@ -2,8 +2,8 @@ import React from 'react'
 import io from 'socket.io-client'
 import axios from 'axios'
 
-import ListGroup from '../components/list-group'
-import InputForm from '../components/input-form'
+import ListGroup from '../components/list-group/list-group'
+import InputForm from '../components/input-form/input-form'
 
 class Lobby extends React.Component {
 
@@ -68,14 +68,14 @@ class Lobby extends React.Component {
             <ListGroup
               items={this.state.players}
               getKey={player => player.id}
-              renderHeader={() => <h2>Players</h2>}
+              renderHeader={() => <span>Players</span>}
               renderItem={player => <span>{player.name}</span>}
             />
             {this.state.questions.length ? (
               <ListGroup
                 items={this.state.questions}
                 getKey={question => question.id}
-                renderHeader={() => <h2>Questions</h2>}
+                renderHeader={() => <span>Questions</span>}
                 renderItem={question => <span>{question.title}</span>}
               />
             ) : (
