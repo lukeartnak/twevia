@@ -1,13 +1,13 @@
 import React from 'react'
 
-const RoomList = ({rooms}) => (
+const RoomList = ({rooms, onClick}) => (
   <ul className="room-list">
-    {rooms.map(room => <Room key={room.id} {...room} /> )}
+    {rooms.map(room => <Room key={room.id} onClick={onClick} {...room} /> )}
   </ul>
 )
 
-const Room = ({id, name}) => (
-  <li>{name}</li>
+const Room = ({name, onClick}) => (
+  <li onClick={onClick.bind(this, name)}>{name}</li>
 )
 
 export default RoomList
