@@ -64,17 +64,35 @@ function setupRoutes(db) {
 
   })
 
+  return db
+
 }
 
-function setupSocket() {
+function setupSocket(db) {
 
   io.on('connection', socket => {
 
-    console.log(`${socket.id} connected`)
-    socket.on('join', data => {
-      let {room, name} = data
+    socket.on('join', ({room, name}) => {
       socket.join(room)
-      io.to(room).emit('joined', {name})
+      db.players.insert({
+        name: name,
+        room_id: room,
+        socket: socket.id
+      }).then(player => {
+        socket.emit('player', {player})
+        io.to(room).emit('joined', {player})
+      })
+    })
+
+    socket.on('disconnect', () => {
+      db.players.update({
+        socket: socket.id
+      }, {
+        active: false
+      }).then(([player]) => {
+        console.log(player)
+        io.to(player.room_id).emit('left', {player})
+      })
     })
 
   })

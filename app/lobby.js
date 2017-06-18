@@ -7,13 +7,25 @@ class Lobby extends React.Component {
     super()
     this.updateName = this.updateName.bind(this)
     this.submitName = this.submitName.bind(this)
-    this.state = {name: '', hasName: false}
+    this.state = {
+      name: '',
+      player: null,
+      players: []
+    }
   }
 
   componentDidMount() {
     this.socket = io('/')
-    this.socket.on('joined', data => {
-      console.log(`${data.name} joined the game!`)
+    this.socket.on('player', ({player}) => {
+      this.setState({player})
+      console.log(player)
+    })
+    this.socket.on('joined', ({player}) => {
+      console.log(`${player.name} joined the game!`)
+      this.setState({players: [...this.state.players, player]})
+    })
+    this.socket.on('left', ({player}) => {
+      console.log(`${player.name} left the game!`)
     })
   }
 
@@ -35,8 +47,12 @@ class Lobby extends React.Component {
     return (
       <div className="lobby">
         <h1>Room {room.name}</h1>
-        {this.state.hasName ? (
-          <span>Welcome {this.state.name}</span>
+        {this.state.player ? (
+          <ul className="player-list">
+            {this.state.players.map(player => (
+              <li key={player.id}>{player.name}</li>
+            ))}
+          </ul>
         ) : (
           <form onSubmit={this.submitName}>
             <label>Enter name</label>
