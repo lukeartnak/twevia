@@ -43,6 +43,7 @@ class Create extends React.Component {
     let {title, answers} = this.state
     return (
       <div className="create">
+        <h1>Create a Question</h1>
         <input type="text" defaultValue={title} onChange={this.updateTitle} />
         <ul className="questions">
           {answers.map(answer =>

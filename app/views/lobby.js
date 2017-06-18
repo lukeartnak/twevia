@@ -7,7 +7,7 @@ import InputForm from '../components/input-form'
 
 class Lobby extends React.Component {
 
-  constructor() {
+  constructor(props) {
     super()
     this.submitName = this.submitName.bind(this)
     this.state = {
@@ -31,6 +31,10 @@ class Lobby extends React.Component {
     this.socket.on('left', ({player}) => {
       console.log(`${player.name} left the game!`)
     })
+    axios.get(`/api/rooms/${this.props.match.params.name}`)
+      .then(response => {
+        this.setState({room: response.data})
+      })
     axios.get('/api/questions')
       .then(response => {
         this.setState({questions: response.data})
@@ -43,16 +47,22 @@ class Lobby extends React.Component {
 
   submitName(name) {
     this.socket.emit('join', {
-      room: this.props.room.id,
+      room: this.state.room.id,
       name: name
     })
   }
 
   render() {
-    let {name} = this.props.room
+
+    if (!this.state.room) {
+      return (
+        <h1>Loading...</h1>
+      )
+    }
+
     return (
       <div className="lobby">
-        <h1>Room {name}</h1>
+        <h1>Room {this.state.room.name}</h1>
         {this.state.player ? (
           <div>
             <ListGroup

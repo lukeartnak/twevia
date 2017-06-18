@@ -1,6 +1,7 @@
 const express = require('express')
 const massive = require('massive')
 const bodyParser = require('body-parser')
+const path = require('path')
 
 const setup = require('./setup')
 
@@ -39,76 +40,14 @@ function setupDatabase(db) {
 
 function setupRoutes(db) {
 
-  app.get('/api/rooms', (req, res) => {
 
-    db.rooms.find().then(rooms => {
-      res.json(rooms)
-    })
+  let api = express.Router()
+  api.use('/rooms', require('./routes/rooms')(db))
+  api.use('/questions', require('./routes/questions')(db))
+  app.use('/api', api)
 
-  })
-
-  app.get('/api/rooms/:name', (req, res) => {
-
-    db.rooms.findOne({
-      name: req.params.name
-    }).then(room => {
-      res.json(room)
-    })
-
-  })
-
-  app.post('/api/rooms', (req, res) => {
-
-    db.rooms.insert({
-      name: Math.random().toString(36).slice(-5)
-    }).then(room => {
-      res.json(room)
-    })
-
-  })
-
-  app.get('/api/questions', (req, res) => {
-
-    db.questions.find()
-      .then(questions => {
-        res.json(questions)
-      })
-
-  })
-
-  app.get('/api/questions/:id', (req, res) => {
-
-    let id = parseInt(req.params.id)
-    let questionQuery = db.questions.findOne(id)
-    let answersQuery = db.answers.find({question_id: id})
-
-    Promise.all([questionQuery, answersQuery])
-      .then(([question, answers]) => {
-        question.answers = answers.map(answer => ({
-          id: answer.id,
-          hint: answer.hint
-        }))
-        res.json(question)
-      })
-
-  })
-
-  app.post('/api/questions', (req, res) => {
-
-    db.questions.insert({
-      title: req.body.title
-    }).then(question => {
-      db.answers.insert(req.body.answers.map(
-        answer => Object.assign({}, answer, {question_id: question.id})
-      )).then(fullAnswers => {
-        question.answers = fullAnswers.map(answer => ({
-          id: answer.id,
-          hint: answer.hint
-        }))
-        res.json(question)
-      })
-    })
-
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('public', 'index.html'))
   })
 
   return db
