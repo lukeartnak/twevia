@@ -12,7 +12,7 @@ class Home extends React.Component {
     return (
       <div className="home-view">
         <h1>Public Rooms</h1>
-        <button onClick={this.props.createRoom}>Create Room</button>
+        <button onClick={this.props.hostRoom}>Host a Room</button>
         <ListGroup
           items={this.props.rooms}
           getKey={room => room.id}

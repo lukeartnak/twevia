@@ -9,8 +9,8 @@ class Application extends React.Component {
 
   constructor() {
     super()
-    this.createRoom = this.createRoom.bind(this)
     this.joinRoom = this.joinRoom.bind(this)
+    this.hostRoom = this.hostRoom.bind(this)
     this.state = {rooms: [], selectedRoom: null}
   }
 
@@ -22,18 +22,21 @@ class Application extends React.Component {
       })
   }
 
-  createRoom() {
-    axios.post('/api/rooms')
-      .then(response => {
-        let room = response.data
-        this.setState({rooms: [...this.state.rooms, room]})
-      })
-  }
-
   joinRoom(room) {
     axios.get(`/api/rooms/${room.name}`)
       .then(response => {
         this.setState({selectedRoom: response.data})
+      })
+  }
+
+  hostRoom() {
+    axios.post('/api/rooms')
+      .then(response => {
+        let room = response.data
+        this.setState({
+          rooms: [...this.state.rooms, room],
+          selectedRoom: room
+        })
       })
   }
 
@@ -45,8 +48,8 @@ class Application extends React.Component {
         ) : (
           <Home
             rooms={this.state.rooms}
-            createRoom={this.createRoom}
             joinRoom={this.joinRoom}
+            hostRoom={this.hostRoom}
           />
         )}
       </div>
