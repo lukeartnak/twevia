@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import Home from './views/home'
 import Lobby from './views/lobby'
+import Create from './views/create'
 
 class Application extends React.Component {
 
@@ -46,11 +47,15 @@ class Application extends React.Component {
         {this.state.selectedRoom ? (
           <Lobby room={this.state.selectedRoom} />
         ) : (
-          <Home
-            rooms={this.state.rooms}
-            joinRoom={this.joinRoom}
-            hostRoom={this.hostRoom}
-          />
+          <div>
+            <Home
+              rooms={this.state.rooms}
+              joinRoom={this.joinRoom}
+              hostRoom={this.hostRoom}
+            />
+            <Create />
+          </div>
+
         )}
       </div>
     )

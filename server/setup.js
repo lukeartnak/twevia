@@ -1,5 +1,8 @@
 module.exports = `
 
+  DROP TABLE IF EXISTS guesses;
+  DROP TABLE IF EXISTS answers;
+  DROP TABLE IF EXISTS questions;
   DROP TABLE IF EXISTS players;
   DROP TABLE IF EXISTS rooms;
 
@@ -27,8 +30,9 @@ module.exports = `
 
   CREATE TABLE IF NOT EXISTS answers (
     id             SERIAL PRIMARY KEY,
+    question_id    INT REFERENCES questions,
     hint           VARCHAR(32),
-    primary        VARCHAR(32),
+    "primary"      VARCHAR(32) NOT NULL,
     alternate      VARCHAR(32)
   );
 
