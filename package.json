@@ -16,6 +16,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "express": "^4.15.3",
+    "massive": "^3.0.0-rc1",
     "webpack": "^2.6.1"
   }
 }
