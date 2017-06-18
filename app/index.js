@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 
-import RoomList from './room-list'
-import Lobby from './lobby'
+import Home from './views/home'
+import Lobby from './views/lobby'
 
 class Application extends React.Component {
 
@@ -30,8 +30,8 @@ class Application extends React.Component {
       })
   }
 
-  joinRoom(name) {
-    axios.get(`/api/rooms/${name}`)
+  joinRoom(room) {
+    axios.get(`/api/rooms/${room.name}`)
       .then(response => {
         this.setState({selectedRoom: response.data})
       })
@@ -41,15 +41,13 @@ class Application extends React.Component {
     return (
       <div className="container">
         {this.state.selectedRoom ? (
-          <div className="room-lobby">
-            <Lobby room={this.state.selectedRoom} />
-          </div>
+          <Lobby room={this.state.selectedRoom} />
         ) : (
-          <div className="public-rooms">
-            <h1>Public Rooms</h1>
-            <button onClick={this.createRoom}>Create Room</button>
-            <RoomList rooms={this.state.rooms} onClick={this.joinRoom} />
-          </div>
+          <Home
+            rooms={this.state.rooms}
+            createRoom={this.createRoom}
+            joinRoom={this.joinRoom}
+          />
         )}
       </div>
     )

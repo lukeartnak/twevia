@@ -1,14 +1,15 @@
 import React from 'react'
 import io from 'socket.io-client'
 
+import ListGroup from '../components/list-group'
+import InputForm from '../components/input-form'
+
 class Lobby extends React.Component {
 
   constructor() {
     super()
-    this.updateName = this.updateName.bind(this)
     this.submitName = this.submitName.bind(this)
     this.state = {
-      name: '',
       player: null,
       players: []
     }
@@ -34,35 +35,26 @@ class Lobby extends React.Component {
     this.socket.close()
   }
 
-  updateName(e) {
-    this.setState({name: e.target.value})
-  }
-
-  submitName(e) {
-    e.preventDefault();
+  submitName(name) {
     this.socket.emit('join', {
       room: this.props.room.id,
-      name: this.state.name
+      name: name
     })
   }
 
   render() {
-    let {room} = this.props
+    let {name} = this.props.room
     return (
       <div className="lobby">
-        <h1>Room {room.name}</h1>
+        <h1>Room {name}</h1>
         {this.state.player ? (
-          <ul className="player-list">
-            {this.state.players.map(player => (
-              <li key={player.id}>{player.name}</li>
-            ))}
-          </ul>
+          <ListGroup
+            items={this.state.players}
+            getKey={player => player.id}
+            renderItem={player => <span>{player.name}</span>}
+          />
         ) : (
-          <form onSubmit={this.submitName}>
-            <label>Enter name</label>
-            <input type="text" onChange={this.updateName} />
-            <button type="submit">Submit</button>
-          </form>
+          <InputForm onSubmit={this.submitName} />
         )}
       </div>
     )
