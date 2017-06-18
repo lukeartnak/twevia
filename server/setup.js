@@ -44,4 +44,24 @@ module.exports = `
     created_at     DATE DEFAULT CURRENT_DATE
   );
 
+  INSERT INTO rooms (name)
+  VALUES
+    ('ABCDE'),
+    ('FDGHI'),
+    ('JKLMN');
+
+  INSERT INTO questions (title)
+  VALUES
+    ('Can you name the Presidents of the United States?'),
+    ('Can you name the state capitals of the United States');
+
+  INSERT INTO answers (question_id, hint, "primary")
+  VALUES
+    (1, '1788-1796', 'George Washington'),
+    (1, '1796-1800', 'John Adams'),
+    (1, '1800-1808', 'Thomas Jefferson'),
+    (2, 'Alabama', 'Montgomery'),
+    (2, 'Alaska', 'Juneau'),
+    (2, 'Arizona', 'Phoenix');
+
 `
