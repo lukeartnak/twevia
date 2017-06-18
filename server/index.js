@@ -1,14 +1,18 @@
 const express = require('express')
 const massive = require('massive')
+
 const setup = require('./setup')
 
 let app = express()
+let server = require('http').Server(app);
+let io = require('socket.io')(server);
 
 app.use(express.static('public'))
 
 connectDatabase()
   .then(setupDatabase)
   .then(setupRoutes)
+  .then(setupSocket)
   .then(startServer)
   .catch(console.log)
 
@@ -62,9 +66,24 @@ function setupRoutes(db) {
 
 }
 
+function setupSocket() {
+
+  io.on('connection', socket => {
+
+    console.log(`${socket.id} connected`)
+    socket.on('join', data => {
+      let {room, name} = data
+      socket.join(room)
+      io.to(room).emit('joined', {name})
+    })
+
+  })
+
+}
+
 function startServer() {
 
-  app.listen(8000, () => {
+  server.listen(8000, () => {
     console.log('server running at http://localhost:8000')
   })
 
