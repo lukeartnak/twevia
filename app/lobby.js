@@ -18,15 +18,20 @@ class Lobby extends React.Component {
     this.socket = io('/')
     this.socket.on('player', ({player}) => {
       this.setState({player})
-      console.log(player)
+    })
+    this.socket.on('players', ({players}) => {
+      this.setState({players})
     })
     this.socket.on('joined', ({player}) => {
       console.log(`${player.name} joined the game!`)
-      this.setState({players: [...this.state.players, player]})
     })
     this.socket.on('left', ({player}) => {
       console.log(`${player.name} left the game!`)
     })
+  }
+
+  componentWillUnmount() {
+    this.socket.close()
   }
 
   updateName(e) {
@@ -39,7 +44,6 @@ class Lobby extends React.Component {
       room: this.props.room.id,
       name: this.state.name
     })
-    this.setState({hasName: true})
   }
 
   render() {

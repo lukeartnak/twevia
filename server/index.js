@@ -70,6 +70,15 @@ function setupRoutes(db) {
 
 function setupSocket(db) {
 
+  let sendPlayerList = (room) => {
+    db.players.find({
+      room_id: room,
+      active: true
+    }).then(players => {
+      io.to(room).emit('players', {players})
+    })
+  }
+
   io.on('connection', socket => {
 
     socket.on('join', ({room, name}) => {
@@ -81,6 +90,7 @@ function setupSocket(db) {
       }).then(player => {
         socket.emit('player', {player})
         io.to(room).emit('joined', {player})
+        sendPlayerList(room)
       })
     })
 
@@ -90,8 +100,8 @@ function setupSocket(db) {
       }, {
         active: false
       }).then(([player]) => {
-        console.log(player)
         io.to(player.room_id).emit('left', {player})
+        sendPlayerList(player.room_id)
       })
     })
 
