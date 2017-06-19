@@ -86,8 +86,10 @@ function setupSocket(db) {
       }, {
         active: false
       }).then(([player]) => {
-        io.to(player.room_id).emit('left', {player})
-        sendPlayerList(player.room_id)
+        if (player) {
+          io.to(player.room_id).emit('left', {player})
+          sendPlayerList(player.room_id)
+        }
       })
     })
 
