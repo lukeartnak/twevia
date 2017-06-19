@@ -1,7 +1,12 @@
 import React from 'react'
 import axios from 'axios'
 
-class Create extends React.Component {
+import Button from '../../components/button/button'
+import ListGroup from '../../components/list-group/list-group'
+
+import './create.scss'
+
+class CreateView extends React.Component {
 
   constructor() {
     super()
@@ -9,7 +14,10 @@ class Create extends React.Component {
     this.addAnswer = this.addAnswer.bind(this)
     this.updateAnswer = this.updateAnswer.bind(this)
     this.submitQuestion = this.submitQuestion.bind(this)
-    this.state = {title: '', answers: []}
+    this.state = {
+      title: '',
+      answers: [{id: 0}]
+    }
   }
 
   updateTitle(e) {
@@ -44,15 +52,14 @@ class Create extends React.Component {
     return (
       <div className="create">
         <input type="text" defaultValue={title} onChange={this.updateTitle} />
-        <ul className="questions">
-          {answers.map(answer =>
-            <Answer key={answer.id} onUpdate={this.updateAnswer} {...answer} />
-          )}
-          <li>
-            <button onClick={this.addAnswer}>Add Answer</button>
-          </li>
-        </ul>
-        <button onClick={this.submitQuestion}>Create Question</button>
+        <ListGroup
+          title="Answers"
+          items={this.state.answers}
+          getKey={answer => answer.id}
+          renderItem={answer => <Answer {...answer} />}
+          renderFooter={() => <Button theme="default" onClick={this.addAnswer} block>Add Answer</Button>}
+        />
+        <Button theme="action" onClick={this.submitQuestion} block>Create Question</Button>
       </div>
     )
   }
@@ -83,14 +90,14 @@ class Answer extends React.Component {
   render() {
     let {id, hint, primary, alternate} = this.props
     return (
-      <li className="answer">
+      <div className="answer">
         <input type="text" defaultValue={hint} onChange={this.updateHint} />
         <input type="text" defaultValue={primary} onChange={this.updatePrimary} />
         <input type="text" defaultValue={alternate} onChange={this.updateAlternate} />
-      </li>
+      </div>
     )
   }
 
 }
 
-export default Create
+export default CreateView

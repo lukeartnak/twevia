@@ -2,12 +2,10 @@ import React from 'react'
 
 import './list-group.scss'
 
-const ListGroup = ({items, renderHeader, renderItem, getKey, onItemClick}) => (
+const ListGroup = ({title, items, renderItem, renderFooter, getKey, onItemClick}) => (
   <ul className="list-group">
-    {renderHeader ? (
-      <li className="list-group__item list-group--header">
-        {renderHeader()}
-      </li>
+    {title ? (
+      <li className="list-group__item list-group--header">{title}</li>
     ) : null}
     {items.map((item, i) => (
       <li className="list-group__item"
@@ -17,6 +15,9 @@ const ListGroup = ({items, renderHeader, renderItem, getKey, onItemClick}) => (
         {renderItem(item)}
       </li>
     ))}
+    {renderFooter ? (
+      <li className="list-group__item">{renderFooter()}</li>
+    ) : null}
   </ul>
 )
 

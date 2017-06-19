@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import Home from './views/home'
-import Lobby from './views/lobby'
-import Create from './views/create'
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
+import CreateView from './views/create/create'
+import LobbyView from './views/lobby/lobby'
+import HomeView from './views/home/home'
 
 import './index.scss'
 
@@ -18,18 +18,20 @@ class Application extends React.Component {
     return (
       <Router>
         <div className="container">
-          <header>
-            <img src="/assets/logo.png" alt="Twevia Logo"/>
+          <div className="nav">
+            <Link className="nav__logo" to="/">
+              <img src="/assets/logo.png" alt="Twevia Logo"/>
+            </Link>
             <Switch>
               <Route exact path="/" component={HomeHeader} />
               <Route path="/rooms/:name" component={LobbyHeader} />
               <Route path="/questions/create" component={CreateHeader} />
             </Switch>
-          </header>
+          </div>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/rooms/:name" component={Lobby} />
-            <Route path="/questions/create" component={Create} />
+            <Route exact path="/" component={HomeView} />
+            <Route path="/rooms/:name" component={LobbyView} />
+            <Route path="/questions/create" component={CreateView} />
           </Switch>
         </div>
       </Router>
@@ -39,15 +41,15 @@ class Application extends React.Component {
 }
 
 const HomeHeader = () => (
-  <h2>Twevia</h2>
+  <div className="nav__text">Twevia</div>
 )
 
 const LobbyHeader = (props) => (
-  <h2>Room {props.match.params.name}</h2>
+  <div className="nav__text">Room {props.match.params.name}</div>
 )
 
 const CreateHeader = () => (
-  <h2>Create a Question</h2>
+  <div className="nav__text">Create a Question</div>
 )
 
 ReactDOM.render(

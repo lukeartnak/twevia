@@ -2,10 +2,12 @@ import React from 'react'
 import axios from 'axios'
 
 import {Link} from 'react-router-dom'
-import Button from '../components/button/button'
-import ListGroup from '../components/list-group/list-group'
+import Button from '../../components/button/button'
+import ListGroup from '../../components/list-group/list-group'
 
-class Home extends React.Component {
+import './home.scss'
+
+class HomeView extends React.Component {
 
   constructor() {
     super()
@@ -47,23 +49,20 @@ class Home extends React.Component {
     return (
       <div className="home-view">
         <Button theme="action" onClick={this.hostRoom} block>Host a Room</Button>
-        <Link to="/questions/create">
-          <Button theme="primary" onClick={this.hostRoom} block>
-            Create a Question
-          </Button>
-        </Link>
-
         <ListGroup
+          title="Rooms"
           items={this.state.rooms}
           getKey={room => room.id}
-          renderHeader={() => <span>Rooms</span>}
           renderItem={room => <span>{room.name}</span>}
           onItemClick={this.joinRoom}
         />
+        <Link to="/questions/create">
+          <Button theme="primary" block>Create a Question</Button>
+        </Link>
       </div>
     )
   }
 
 }
 
-export default Home
+export default HomeView

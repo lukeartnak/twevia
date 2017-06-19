@@ -2,10 +2,12 @@ import React from 'react'
 import io from 'socket.io-client'
 import axios from 'axios'
 
-import ListGroup from '../components/list-group/list-group'
-import InputForm from '../components/input-form/input-form'
+import InputForm from '../../components/input-form/input-form'
+import ListGroup from '../../components/list-group/list-group'
 
-class Lobby extends React.Component {
+import './lobby.scss'
+
+class LobbyView extends React.Component {
 
   constructor(props) {
     super()
@@ -61,20 +63,20 @@ class Lobby extends React.Component {
     }
 
     return (
-      <div className="lobby">
+      <div className="lobby-view">
         {this.state.player ? (
           <div>
             <ListGroup
+              title="Players"
               items={this.state.players}
               getKey={player => player.id}
-              renderHeader={() => <span>Players</span>}
               renderItem={player => <span>{player.name}</span>}
             />
             {this.state.questions.length ? (
               <ListGroup
+                title="Questions"
                 items={this.state.questions}
                 getKey={question => question.id}
-                renderHeader={() => <span>Questions</span>}
                 renderItem={question => <span>{question.title}</span>}
               />
             ) : (
@@ -91,4 +93,4 @@ class Lobby extends React.Component {
 
 }
 
-export default Lobby
+export default LobbyView
