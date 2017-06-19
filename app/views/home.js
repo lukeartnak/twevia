@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import {Link} from 'react-router-dom'
+import Button from '../components/button/button'
 import ListGroup from '../components/list-group/list-group'
 
 class Home extends React.Component {
@@ -45,11 +46,13 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home-view">
-        <h1>Twevia</h1>
-        <button onClick={this.hostRoom}>Host a Room</button>
+        <Button theme="action" onClick={this.hostRoom} block>Host a Room</Button>
         <Link to="/questions/create">
-          <button>Create a Question</button>
+          <Button theme="primary" onClick={this.hostRoom} block>
+            Create a Question
+          </Button>
         </Link>
+
         <ListGroup
           items={this.state.rooms}
           getKey={room => room.id}

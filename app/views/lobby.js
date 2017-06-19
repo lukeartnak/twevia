@@ -62,7 +62,6 @@ class Lobby extends React.Component {
 
     return (
       <div className="lobby">
-        <h1>Room {this.state.room.name}</h1>
         {this.state.player ? (
           <div>
             <ListGroup

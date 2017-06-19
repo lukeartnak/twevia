@@ -1,0 +1,39 @@
+@mixin button-theme($bg, $text) {
+  background: $bg;
+  color: $text;
+
+  &:hover {
+    background: darken($bg, 10%);
+  }
+
+  &:active {
+    background: darken($bg, 15%);
+  }
+
+}
+
+.button {
+  padding: .5em;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: inherit;
+  outline: none;
+
+  &--block {
+    width: 100%;
+  }
+
+  &--default {
+    @include button-theme(#fff, #333);
+  }
+
+  &--primary {
+    @include button-theme(#2196F3, #fff);
+  }
+
+  &--action {
+    @include button-theme(#4CAF50, #fff);
+  }
+
+}
