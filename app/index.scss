@@ -6,3 +6,14 @@ html {
 body {
   background: url('/assets/bg.png')
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  margin-bottom: 20px;
+
+  img {
+    height: 100%;
+  }
+}
