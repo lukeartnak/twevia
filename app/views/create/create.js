@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import Button from '../../components/button/button'
+import Input from '../../components/input/input'
 import ListGroup from '../../components/list-group/list-group'
 
 import './create.scss'
@@ -51,12 +52,12 @@ class CreateView extends React.Component {
     let {title, answers} = this.state
     return (
       <div className="create">
-        <input type="text" defaultValue={title} onChange={this.updateTitle} />
+        <Input label="Title" value={title} onChange={this.updateTitle} />
         <ListGroup
           title="Answers"
           items={this.state.answers}
           getKey={answer => answer.id}
-          renderItem={answer => <Answer {...answer} />}
+          renderItem={answer => <Answer {...answer} onUpdate={this.updateAnswer} />}
           renderFooter={() => <Button theme="default" onClick={this.addAnswer} block>Add Answer</Button>}
         />
         <Button theme="action" onClick={this.submitQuestion} block>Create Question</Button>
@@ -91,9 +92,9 @@ class Answer extends React.Component {
     let {id, hint, primary, alternate} = this.props
     return (
       <div className="answer">
-        <input type="text" defaultValue={hint} onChange={this.updateHint} />
-        <input type="text" defaultValue={primary} onChange={this.updatePrimary} />
-        <input type="text" defaultValue={alternate} onChange={this.updateAlternate} />
+        <Input label="Answer" value={primary} onChange={this.updatePrimary} />
+        <Input label="Hint (Optional)" value={hint} onChange={this.updateHint} />
+        <Input label="Alternate Answer (Optional)" value={alternate} onChange={this.updateAlternate} />
       </div>
     )
   }

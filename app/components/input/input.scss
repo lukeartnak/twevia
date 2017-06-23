@@ -1,0 +1,23 @@
+.input {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    flex: 1;
+    color: #555;
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  input {
+    flex: 1;
+    padding: .5em;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font: inherit;
+    outline: none;
+  }
+}

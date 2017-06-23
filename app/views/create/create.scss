@@ -1,9 +1,12 @@
 .answer {
   display: flex;
+  flex-direction: column;
 
-  input {
-    flex: 1;
+  .input {
     width: 100%;
-    border: 1px solid #ddd;
+  }
+
+  .input + .input {
+    margin-top: 5px;
   }
 }
