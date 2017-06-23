@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 import CreateView from './views/create/create'
-import LobbyView from './views/lobby/lobby'
+import RoomView from './views/room/room'
 import HomeView from './views/home/home'
 
 import './index.scss'
@@ -30,7 +30,7 @@ class Application extends React.Component {
           </div>
           <Switch>
             <Route exact path="/" component={HomeView} />
-            <Route path="/rooms/:name" component={LobbyView} />
+            <Route path="/rooms/:name" component={RoomView} />
             <Route path="/questions/create" component={CreateView} />
           </Switch>
         </div>
