@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
 
 import {Link} from 'react-router-dom'
@@ -7,7 +7,7 @@ import ListGroup from '../../components/list-group/list-group'
 
 import './home.scss'
 
-class HomeView extends React.Component {
+class HomeView extends Component {
 
   constructor() {
     super()

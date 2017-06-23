@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
 
 import InputForm from '../../../components/input-form/input-form'
@@ -6,7 +6,7 @@ import ListGroup from '../../../components/list-group/list-group'
 
 import './game.scss'
 
-class Game extends React.Component {
+class Game extends Component {
 
   constructor() {
     super()

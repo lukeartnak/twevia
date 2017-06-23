@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {Component} from 'react'
 
 import './input-form.scss'
 
-class InputForm extends React.Component {
+class InputForm extends Component {
 
   constructor(props) {
     super()

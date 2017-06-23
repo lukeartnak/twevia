@@ -1,5 +1,4 @@
-import React from 'react'
-import io from 'socket.io-client'
+import React, {Component} from 'react'
 import axios from 'axios'
 
 import Button from '../../../components/button/button'
@@ -8,7 +7,7 @@ import ListGroup from '../../../components/list-group/list-group'
 
 import './lobby.scss'
 
-class Lobby extends React.Component {
+class Lobby extends Component {
 
   constructor() {
     super()

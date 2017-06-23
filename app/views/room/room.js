@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import io from 'socket.io-client'
 import axios from 'axios'
 
@@ -7,7 +7,7 @@ import Game from './game/game'
 
 import './room.scss'
 
-class RoomView extends React.Component {
+class RoomView extends Component {
 
   constructor() {
     super()

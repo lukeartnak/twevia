@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
 
 import Button from '../../components/button/button'
@@ -7,7 +7,7 @@ import ListGroup from '../../components/list-group/list-group'
 
 import './create.scss'
 
-class CreateView extends React.Component {
+class CreateView extends Component {
 
   constructor() {
     super()
