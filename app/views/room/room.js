@@ -3,6 +3,7 @@ import io from 'socket.io-client'
 import axios from 'axios'
 
 import Lobby from './lobby/lobby'
+import Game from './game/game'
 
 import './room.scss'
 
@@ -12,6 +13,9 @@ class RoomView extends React.Component {
     super()
 
     this.handleNameSubmit = this.handleNameSubmit.bind(this)
+    this.handleGuessSubmit = this.handleGuessSubmit.bind(this)
+    this.handleQuestionSelect = this.handleQuestionSelect.bind(this)
+    this.handleGameStart = this.handleGameStart.bind(this)
     this.state = {
       player: null,
       players: []
@@ -50,6 +54,25 @@ class RoomView extends React.Component {
     })
   }
 
+  handleGuessSubmit(guess) {
+    this.socket.emit('guess', {
+      room: this.state.room.id,
+      player: this.state.player.id,
+      guess: guess
+    })
+  }
+
+  handleQuestionSelect(id) {
+    axios.get(`/api/questions/${id}`)
+      .then(response => {
+        this.setState({question: response.data})
+      })
+  }
+
+  handleGameStart() {
+    this.setState({inProgress: true})
+  }
+
   render() {
 
     if (!this.state.room) return <h1>Loading...</h1>
@@ -57,9 +80,18 @@ class RoomView extends React.Component {
     return (
       <div className="room-view">
         {this.state.inProgress ? (
-          null
+          <Game
+            answers={this.state.question.answers}
+            onGuessSubmit={this.handleGuessSubmit}
+          />
         ) : (
-          <Lobby player={this.state.player} players={this.state.players} onNameSubmit={this.handleNameSubmit} />
+          <Lobby
+            player={this.state.player}
+            players={this.state.players}
+            onNameSubmit={this.handleNameSubmit}
+            onQuestionSelect={this.handleQuestionSelect}
+            onGameStart={this.handleGameStart}
+          />
         )}
       </div>
     )

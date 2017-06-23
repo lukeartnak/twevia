@@ -1,0 +1,12 @@
+.answer {
+  display: flex;
+
+  &__hint {
+    background: #455A64;
+    color: #fff;
+  }
+
+  &__primary {
+    flex: 1;
+  }
+}

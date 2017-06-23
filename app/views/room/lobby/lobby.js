@@ -2,6 +2,7 @@ import React from 'react'
 import io from 'socket.io-client'
 import axios from 'axios'
 
+import Button from '../../../components/button/button'
 import InputForm from '../../../components/input-form/input-form'
 import ListGroup from '../../../components/list-group/list-group'
 
@@ -13,6 +14,7 @@ class Lobby extends React.Component {
     super()
 
     this.submitName = this.submitName.bind(this)
+    this.selectQuestion = this.selectQuestion.bind(this)
     this.state = {
       questions: []
     }
@@ -27,6 +29,10 @@ class Lobby extends React.Component {
 
   submitName(name) {
     this.props.onNameSubmit(name)
+  }
+
+  selectQuestion(question) {
+    this.props.onQuestionSelect(question.id)
   }
 
   render() {
@@ -45,7 +51,9 @@ class Lobby extends React.Component {
               items={this.state.questions}
               getKey={question => question.id}
               renderItem={question => <span>{question.title}</span>}
+              onItemClick={this.selectQuestion}
             />
+            <Button theme="action" onClick={this.props.onGameStart} block>Start Game</Button>
           </div>
         ) : (
           <InputForm onSubmit={this.submitName} />
