@@ -40,7 +40,7 @@ class Game extends Component {
 const Answer = ({hint, primary}) => (
   <div className="answer">
     {hint ? <div className="answer__hint">{hint}</div> : null}
-    {primary ? <div className="answer__primary">{primary}</div> : null}
+    <div className="answer__primary">{primary}</div>
   </div>
 )
 

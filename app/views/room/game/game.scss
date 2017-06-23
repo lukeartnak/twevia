@@ -1,12 +1,28 @@
-.answer {
-  display: flex;
+.game {
 
-  &__hint {
-    background: #455A64;
-    color: #fff;
+  .input-form {
+    margin-bottom: 20px;
   }
 
-  &__primary {
-    flex: 1;
+  .list-group__item:not(.list-group--header) {
+    padding: 0;
   }
+
+  .answer {
+    display: flex;
+    align-items: center;
+
+    &__hint {
+      background: #455A64;
+      color: #fff;
+      flex: 1;
+      padding: .5em;
+    }
+
+    &__primary {
+      padding: .5em;
+      flex: 4;
+    }
+  }
+
 }

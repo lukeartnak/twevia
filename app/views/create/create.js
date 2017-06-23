@@ -51,7 +51,7 @@ class CreateView extends Component {
   render() {
     let {title, answers} = this.state
     return (
-      <div className="create">
+      <div className="create-view">
         <Input label="Title" value={title} onChange={this.updateTitle} />
         <ListGroup
           title="Answers"

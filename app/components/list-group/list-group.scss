@@ -9,6 +9,11 @@
   &__item {
     padding: .5em;
     list-style: none;
+    cursor: pointer;
+
+    &:hover {
+      background: #FAFAFA;
+    }
   }
 
   &__item + &__item {
@@ -18,6 +23,11 @@
   &--header {
     background: #455A64;
     color: #fff;
+    cursor: default;
+
+    &:hover {
+      background: #455A64;
+    }
   }
 
 }
